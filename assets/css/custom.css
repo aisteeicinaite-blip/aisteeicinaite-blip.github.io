@@ -1,0 +1,108 @@
+
+/* ===== 1. Sriftai ir tekstas ===== */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    letter-spacing: 0.2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.8;
+}
+
+/* ===== 2. Nuorodos ===== */
+
+a:not(.navmenu a) {
+    color: #0877c9;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:not(.navmenu a):hover {
+    color: #e49b35;
+    text-decoration: underline;
+}
+
+a:not(.navmenu a):active {
+    color: #123b63;
+}
+
+/* ===== 3. Mygtukai ===== */
+
+.btn,
+button {
+    border-radius: 25px;
+    padding: 10px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover,
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active,
+button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* ===== 4. Sekcijų antraštės ===== */
+
+.section-title h2 {
+    color: #123b63;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* ===== 5. Paslaugų kortelės ===== */
+
+.service-item {
+    background: #f0f6fc;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(18, 59, 99, 0.12);
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    background: #e1effb;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 24px rgba(18, 59, 99, 0.18);
+}
+
+/* ===== 6. Projektų nuotraukos ===== */
+
+.portfolio-content {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(18, 59, 99, 0.12);
+}
+/* Mėlynos spalvos akcentai */
+.section-title h2 {
+    color: #075da8;
+}
+
+.skills .progress-bar {
+    background-color: #0877c9;
+}
+
+.service-item {
+    background-color: #edf5fc;
+    border: 1px solid #d5e6f5;
+}
+
+.service-item:hover {
+    background-color: #dcecf9;
+}
