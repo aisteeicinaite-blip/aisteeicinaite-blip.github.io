@@ -681,3 +681,87 @@ section#services {
   background: linear-gradient(135deg, #075da8, #0877c9);
   transform: rotate(-8deg) scale(1.08);
 }
+
+/* ===== 13. KONTAKTŲ FORMA ===== */
+
+.contact .php-email-form {
+  height: auto;
+}
+
+.contact .php-email-form .form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d3a57;
+  margin-bottom: 6px;
+}
+
+.contact .php-email-form input.form-control {
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #cfdcea;
+  background-color: #ffffff;
+}
+
+.contact .php-email-form input.form-control:focus {
+  border-color: #0877c9;
+  box-shadow: 0 0 0 3px rgba(8, 119, 201, 0.15);
+}
+
+/* Klaidingai užpildytas laukas */
+.contact .php-email-form input.form-control.is-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.12);
+}
+
+.contact .php-email-form .invalid-feedback {
+  font-size: 13px;
+}
+
+/* Neaktyvus „Siųsti“ mygtukas */
+.contact .php-email-form button[type=submit]:disabled {
+  background: #a9bfd4;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* „Išvalyti“ mygtukas */
+.contact .php-email-form .clear-btn {
+  margin-left: 10px;
+  padding: 12px 34px;
+  border-radius: 12px;
+  border: 2px solid #075da8;
+  background: #ffffff;
+  color: #075da8;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact .php-email-form .clear-btn:hover {
+  background: #e3effa;
+}
+
+/* Formos rezultatai */
+.form-result {
+  margin-top: 25px;
+  padding: 20px 25px;
+  background: #ffffff;
+  border-left: 4px solid #0877c9;
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 5px 16px rgba(18, 59, 99, 0.1);
+}
+
+.form-result p {
+  margin-bottom: 6px;
+}
+
+.form-result .form-average {
+  margin-top: 12px;
+  margin-bottom: 0;
+  padding-top: 12px;
+  border-top: 1px solid #dce8f5;
+  font-weight: 700;
+  color: #075da8;
+}
