@@ -358,7 +358,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="module-stat">
           <i class="bi bi-grid"></i>
-          <h3>8</h3>
+          <h3 id="stat-total">8</h3>
           <p>Visi įgūdžiai</p>
         </div>
       </div>
@@ -366,7 +366,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="module-stat">
           <i class="bi bi-check-circle"></i>
-          <h3>3</h3>
+          <h3 id="stat-completed">3</h3>
           <p>Atlikti įgūdžiai</p>
         </div>
       </div>
@@ -374,7 +374,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="module-stat">
           <i class="bi bi-graph-up-arrow"></i>
-          <h3>37,5%</h3>
+          <h3 id="stat-percent">37,5%</h3>
           <p>Atliktų įgūdžių procentas</p>
         </div>
       </div>
@@ -387,23 +387,24 @@
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
         <div>
           <h3>Mano dabartinis lygis</h3>
-          <p class="mb-0">3 lygis – Specialistas</p>
+          <p class="mb-0" id="level-text">3 lygis – Specialistas</p>
         </div>
 
         <div class="module-xp">
-         <strong>160 XP</strong>
+         <strong id="xp-total">160 XP</strong>
           <span>Surinkti patirties taškai (atlikti įgūdžiai)</span>
           <span>Visų įgūdžių XP suma: 420 XP</span>
         </div>
       </div>
 
       <div class="module-progress-info">
-        <span>Pažanga iki 4 lygio</span>
-        <strong>160 / 300 XP</strong>
+        <span id="progress-label">Pažanga iki 4 lygio</span>
+        <strong id="progress-text">160 / 300 XP</strong>
       </div>
 
       <div class="progress module-progress">
         <div class="progress-bar"
+             id="xp-progress-bar"
              role="progressbar"
              style="width: 53.33%;"
              aria-valuenow="53.33"
@@ -412,7 +413,7 @@
         </div>
       </div>
 
-      <p class="module-next-level">Iki kito lygio (4- Profesionalas) liko 140 XP.</p>
+      <p class="module-next-level" id="next-level-text">Iki kito lygio (4 – Profesionalas) liko 140 XP.</p>
 
     </div>
 
@@ -457,78 +458,33 @@
     <!-- KANBAN BOARD -->
     <h3 class="module-heading">Įgūdžių Kanban lenta</h3>
 
-    <div class="kanban-board">
+        <div class="kanban-board">
 
       <!-- PLANNED -->
       <div class="kanban-column">
         <div class="kanban-title planned-title">
           <h4>Planuojama</h4>
-          <span>3 įgūdžiai</span>
+          <span id="count-planuojama"></span>
         </div>
-
-        <div class="skill-card">
-          <h5>Python programavimas</h5>
-          <p>Būsena: Planuojama</p>
-          <strong>50 XP</strong>
-        </div>
-
-        <div class="skill-card">
-          <h5>PLC valdikliai</h5>
-          <p>Būsena: Planuojama</p>
-          <strong>60 XP</strong>
-        </div>
-
-        <div class="skill-card">
-          <h5>Elektros tinklų projektavimas</h5>
-          <p>Būsena: Planuojama</p>
-          <strong>40 XP</strong>
-        </div>
+        <div id="cards-planuojama"></div>
       </div>
 
       <!-- LEARNING -->
       <div class="kanban-column">
         <div class="kanban-title learning-title">
           <h4>Mokomasi</h4>
-          <span>2 įgūdžiai</span>
+          <span id="count-mokomasi"></span>
         </div>
-
-        <div class="skill-card">
-          <h5>MATLAB programavimas</h5>
-          <p>Būsena: Mokomasi</p>
-          <strong>60 XP</strong>
-        </div>
-
-        <div class="skill-card">
-          <h5>Elektros energetikos sistemos</h5>
-          <p>Būsena: Mokomasi</p>
-          <strong>50 XP</strong>
-        </div>
+        <div id="cards-mokomasi"></div>
       </div>
 
       <!-- COMPLETED -->
       <div class="kanban-column">
         <div class="kanban-title completed-title">
           <h4>Atlikta</h4>
-          <span>3 įgūdžiai</span>
+          <span id="count-atlikta"></span>
         </div>
-
-        <div class="skill-card">
-          <h5>Microsoft Excel</h5>
-          <p>Būsena: Atlikta</p>
-          <strong>50 XP</strong>
-        </div>
-
-        <div class="skill-card">
-          <h5>HTML ir CSS</h5>
-          <p>Būsena: Atlikta</p>
-          <strong>40 XP</strong>
-        </div>
-
-        <div class="skill-card">
-          <h5>Elektros grandinių analizė</h5>
-          <p>Būsena: Atlikta</p>
-          <strong>70 XP</strong>
-        </div>
+        <div id="cards-atlikta"></div>
       </div>
 
     </div>

@@ -205,3 +205,218 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 });
+
+
+/* ===== KOMPETENCIJŲ PAŽANGOS MODULIS ===== */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  if (!document.getElementById('cards-planuojama')) return;
+
+  /* ----- Pradiniai duomenys ----- */
+
+  const statuses = ['Planuojama', 'Mokomasi', 'Atlikta'];
+
+  const skills = [
+    { pavadinimas: 'Python programavimas', busena: 'Planuojama', xp: 50 },
+    { pavadinimas: 'PLC valdikliai', busena: 'Planuojama', xp: 60 },
+    { pavadinimas: 'Elektros tinklų projektavimas', busena: 'Planuojama', xp: 40 },
+    { pavadinimas: 'MATLAB programavimas', busena: 'Mokomasi', xp: 60 },
+    { pavadinimas: 'Elektros energetikos sistemos', busena: 'Mokomasi', xp: 50 },
+    { pavadinimas: 'Microsoft Excel', busena: 'Atlikta', xp: 50 },
+    { pavadinimas: 'HTML ir CSS', busena: 'Atlikta', xp: 40 },
+    { pavadinimas: 'Elektros grandinių analizė', busena: 'Atlikta', xp: 70 }
+  ];
+
+  // Lygių ir rangų lentelė (max – kito lygio riba)
+  const levels = [
+    { lygis: 1, min: 0, max: 50, rangas: 'Pradedantysis' },
+    { lygis: 2, min: 50, max: 150, rangas: 'Praktikantas' },
+    { lygis: 3, min: 150, max: 300, rangas: 'Specialistas' },
+    { lygis: 4, min: 300, max: null, rangas: 'Profesionalas' }
+  ];
+
+  const storageKey = 'igudziuBusenos';
+
+  /* ----- Vietinė saugykla (Local Storage) ----- */
+
+  // Išsaugo kiekvieno įgūdžio būseną
+  function saveStatuses() {
+    const saved = {};
+
+    skills.forEach(function (skill) {
+      saved[skill.pavadinimas] = skill.busena;
+    });
+
+    localStorage.setItem(storageKey, JSON.stringify(saved));
+  }
+
+  // Atkuria išsaugotas būsenas (jei jų nėra – lieka pradinės)
+  function loadStatuses() {
+    const data = localStorage.getItem(storageKey);
+
+    if (!data) return;
+
+    let saved;
+
+    try {
+      saved = JSON.parse(data);
+    } catch (error) {
+      return;
+    }
+
+    skills.forEach(function (skill) {
+      if (statuses.includes(saved[skill.pavadinimas])) {
+        skill.busena = saved[skill.pavadinimas];
+      }
+    });
+  }
+
+  /* ----- Pagalbinės funkcijos ----- */
+
+  // Teisinga žodžio „įgūdis“ forma pagal skaičių
+  function skillWord(count) {
+    const lastTwo = count % 100;
+    const last = count % 10;
+
+    if (last === 1 && lastTwo !== 11) return count + ' įgūdis';
+    if (last >= 2 && last <= 9 && (lastTwo < 12 || lastTwo > 19)) return count + ' įgūdžiai';
+    return count + ' įgūdžių';
+  }
+
+  // Grąžina lygį pagal XP kiekį
+  function getLevel(xp) {
+    return levels.find(function (level) {
+      return level.max === null || xp < level.max;
+    });
+  }
+
+  // Sudeda tik „Atlikta“ būsenos įgūdžių XP
+  function calculateXp() {
+    return skills
+      .filter(function (skill) { return skill.busena === 'Atlikta'; })
+      .reduce(function (sum, skill) { return sum + skill.xp; }, 0);
+  }
+
+  /* ----- Įgūdžių kortelių atvaizdavimas ----- */
+
+  function createCard(skill) {
+    const card = document.createElement('div');
+    card.className = 'skill-card';
+
+    const title = document.createElement('h5');
+    title.textContent = skill.pavadinimas;
+
+    const label = document.createElement('label');
+    label.className = 'skill-status-label';
+    label.textContent = 'Būsena:';
+
+    const select = document.createElement('select');
+    select.className = 'skill-status';
+
+    statuses.forEach(function (status) {
+      const option = document.createElement('option');
+      option.value = status;
+      option.textContent = status;
+      option.selected = status === skill.busena;
+      select.appendChild(option);
+    });
+
+    // Pakeitus būseną, kortelė perkeliama ir viskas perskaičiuojama
+    select.addEventListener('change', function () {
+      skill.busena = select.value;
+      saveStatuses();
+      updateModule();
+    });
+
+    label.appendChild(select);
+
+    const xp = document.createElement('strong');
+    xp.textContent = skill.xp + ' XP';
+
+    card.appendChild(title);
+    card.appendChild(label);
+    card.appendChild(xp);
+
+    return card;
+  }
+
+  function renderCards() {
+    statuses.forEach(function (status) {
+      const column = document.getElementById('cards-' + status.toLowerCase());
+      const count = document.getElementById('count-' + status.toLowerCase());
+
+      const columnSkills = skills.filter(function (skill) {
+        return skill.busena === status;
+      });
+
+      column.innerHTML = '';
+
+      columnSkills.forEach(function (skill) {
+        column.appendChild(createCard(skill));
+      });
+
+      count.textContent = skillWord(columnSkills.length);
+    });
+  }
+
+  /* ----- XP, lygio, rango ir progreso juostos atnaujinimas ----- */
+
+  function renderProgress() {
+    const xp = calculateXp();
+    const level = getLevel(xp);
+    const progressBar = document.getElementById('xp-progress-bar');
+
+    document.getElementById('xp-total').textContent = xp + ' XP';
+    document.getElementById('level-text').textContent = level.lygis + ' lygis – ' + level.rangas;
+
+    let percent;
+
+    if (level.max === null) {
+      // Pasiektas 4 lygis – juosta pilna
+      percent = 100;
+      document.getElementById('progress-label').textContent = 'Pasiektas aukščiausias lygis';
+      document.getElementById('progress-text').textContent = xp + ' XP';
+      document.getElementById('next-level-text').textContent = 'Pasiektas aukščiausias lygis – ' + level.rangas + '.';
+    } else {
+      const nextLevel = levels[level.lygis];
+
+      // Progresas nuo einamojo lygio pradžios iki kito lygio ribos
+      percent = (xp - level.min) / (level.max - level.min) * 100;
+      document.getElementById('progress-label').textContent = 'Pažanga iki ' + nextLevel.lygis + ' lygio (' + level.min + '–' + level.max + ' XP)';
+      document.getElementById('progress-text').textContent = xp + ' / ' + level.max + ' XP';
+      document.getElementById('next-level-text').textContent =
+        'Iki kito lygio (' + nextLevel.lygis + ' – ' + nextLevel.rangas + ') liko ' + (level.max - xp) + ' XP.';
+    }
+
+    progressBar.style.width = percent + '%';
+    progressBar.setAttribute('aria-valuenow', percent.toFixed(2));
+  }
+
+  /* ----- Statistikos atnaujinimas ----- */
+
+  function renderStatistics() {
+    const total = skills.length;
+    const completed = skills.filter(function (skill) {
+      return skill.busena === 'Atlikta';
+    }).length;
+    const percent = total === 0 ? 0 : completed / total * 100;
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-completed').textContent = completed;
+    document.getElementById('stat-percent').textContent =
+      percent.toLocaleString('lt-LT', { maximumFractionDigits: 1 }) + '%';
+  }
+
+  /* ----- Viso modulio atnaujinimas ----- */
+
+  function updateModule() {
+    renderCards();
+    renderProgress();
+    renderStatistics();
+  }
+
+  loadStatuses();
+  updateModule();
+
+});

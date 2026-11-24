@@ -540,6 +540,33 @@ section.section {
   font-size: 15px;
 }
 
+/* Būsenos pasirinkimas kortelėje */
+.skill-status-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666666;
+  margin-bottom: 8px;
+}
+
+.skill-status {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 8px;
+  font-size: 13px;
+  color: #1d3a57;
+  background: #f7faff;
+  border: 1px solid #cfdcea;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.skill-status:focus {
+  outline: none;
+  border-color: #0877c9;
+  box-shadow: 0 0 0 3px rgba(8, 119, 201, 0.15);
+}
 /* ===== 11. PASLAUGOS ===== */
 
 /* Animuotas gradientinis fonas */
